@@ -1,3 +1,5 @@
+import org.w3c.dom.ls.LSOutput;
+
 public class ArrayList implements List {
 
     private int[] array = new int[100];
@@ -12,14 +14,14 @@ public class ArrayList implements List {
     }
 
     @Override
-    public void add(int i, int index) throws IndexOutOfBoundsException {
+    public void add(int value, int index) throws IndexOutOfBoundsException {
         if (index < 0 || index > length)
             throw new IndexOutOfBoundsException(index);
 
         expandIfFull();
-        for (int j = length; j > index; j--)
-            array[j] = array[j - 1];
-        array[index] = i;
+        for (int i = length; i > index; i--)
+            array[i] = array[i - 1];
+        array[index] = value;
         length++;
     }
 
