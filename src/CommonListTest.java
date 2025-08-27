@@ -144,7 +144,7 @@ abstract class CommonListTest {
     }
 
     @Test
-    public void testAddToListWithIndex() {
+    public void testAddToMiddleOfListWithIndex() {
         list.add(1);
         list.add(3);
         list.add(4);
@@ -153,6 +153,26 @@ abstract class CommonListTest {
         assertEquals(2, list.get(1));
         assertEquals(3, list.get(2));
         assertEquals(4, list.get(3));
+    }
+
+    @Test
+    public void testAddMoreThanHundredItems() {
+        for (int i = 0; i < 100; i++) {
+            list.add(i);
+        }
+        assertEquals(100, list.size());
+        assertEquals(0, list.get(0));
+        assertEquals(99, list.get(99));
+        list.add(100);
+        assertEquals(101, list.size());
+    }
+
+    @Test
+    public void testAdd1000Items() {
+        for (int i = 0; i < 1000; i++) {
+            list.add(i);
+        }
+        assertEquals(1000, list.size());
     }
 
     private void assertOutOfBounds(int index, Runnable operation) {

@@ -6,15 +6,17 @@ public class ArrayList implements List {
 
     @Override
     public void add(int i) {
+        expandIfFull();
         array[length] = i;
         length++;
     }
 
     @Override
     public void add(int i, int index) throws IndexOutOfBoundsException {
-        if (index < 0 || index > length) {
+        if (index < 0 || index > length)
             throw new IndexOutOfBoundsException(index);
-        }
+
+        expandIfFull();
         for (int j = length; j > index; j--)
             array[j] = array[j - 1];
         array[index] = i;
@@ -42,5 +44,13 @@ public class ArrayList implements List {
     private void assertInRange(int index) {
         if (index < 0 || index >= size())
             throw new IndexOutOfBoundsException(index);
+    }
+
+    private void expandIfFull() {
+        if (length == array.length) {
+            int[] newArray = new int[array.length + 100];
+            System.arraycopy(array, 0, newArray, 0, array.length);
+            array = newArray;
+        }
     }
 }
