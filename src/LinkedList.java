@@ -1,15 +1,46 @@
-public class LinkedList implements List{
+public class LinkedList implements List {
 
     private int length;
+    private Node head;
 
     @Override
-    public void add(int i) {
+    public void add(int value) {
+        Node newNode = new Node(value);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node current = head;
+            while (current.next != null) {
+                current = current.next;
+            }
+            current.next = newNode;
+        }
         length++;
     }
 
     @Override
-    public void add(int value, int index) {
+    public void remove(int index) {
+        assertInRange(index);
+        if (index == 0) {
+            head = head.next;
+        } else {
+            Node current = head;
+            for (int i = 0; i < index - 1; i++) {
+                current = current.next;
+            }
+            current.next = current.next.next;
+        }
+        length--;
+    }
 
+    @Override
+    public int get(int index) {
+        assertInRange(index);
+        Node current = head;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+        return current.value;
     }
 
     @Override
@@ -18,18 +49,12 @@ public class LinkedList implements List{
     }
 
     @Override
-    public void remove(int index) {
-        if(length <= 0)
-            throw new IndexOutOfBoundsException(index);
-        length--;
+    public void add(int value, int index) {
+
     }
 
-    @Override
-    public int get(int index) throws IndexOutOfBoundsException {
-        if(index < 0 || index >= length)
+    private void assertInRange(int index) {
+        if (index < 0 || index >= length)
             throw new IndexOutOfBoundsException(index);
-        if(index == 0)
-            return 1;
-        return 2;
     }
 }

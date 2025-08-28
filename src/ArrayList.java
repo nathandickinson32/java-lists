@@ -1,5 +1,3 @@
-import org.w3c.dom.ls.LSOutput;
-
 public class ArrayList implements List {
 
     private int[] array = new int[100];
@@ -44,7 +42,7 @@ public class ArrayList implements List {
     }
 
     private void assertInRange(int index) {
-        if (index < 0 || index >= size())
+        if (index < 0 || index >= length)
             throw new IndexOutOfBoundsException(index);
     }
 
