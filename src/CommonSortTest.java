@@ -2,9 +2,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class CommonSortTest {
-    protected Sort sorter = new BubbleSort();
-    private List list = new ArrayList();
+public abstract class CommonSortTest {
+    protected Sort sorter;
+    protected List list;
 
     @Test
     public void testEmptyArray() {
