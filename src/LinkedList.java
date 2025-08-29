@@ -5,14 +5,24 @@ public class LinkedList implements List {
 
     @Override
     public void add(int value) {
+        add(value, length);
+    }
+
+    @Override
+    public void add(int value, int index) {
+        assertInRangeAddIndex(index);
+
         Node newNode = new Node(value);
-        if (head == null) {
+
+        if (index == 0) {
+            newNode.next = head;
             head = newNode;
         } else {
             Node current = head;
-            while (current.next != null) {
+            for (int i = 0; i < index - 1; i++) {
                 current = current.next;
             }
+            newNode.next = current.next;
             current.next = newNode;
         }
         length++;
@@ -21,6 +31,7 @@ public class LinkedList implements List {
     @Override
     public void remove(int index) {
         assertInRange(index);
+
         if (index == 0) {
             head = head.next;
         } else {
@@ -49,12 +60,22 @@ public class LinkedList implements List {
     }
 
     @Override
-    public void add(int value, int index) {
-
+    public void set(int index, int value) throws IndexOutOfBoundsException {
+        assertInRange(index);
+        Node current = head;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+        current.value = value;
     }
 
     private void assertInRange(int index) {
         if (index < 0 || index >= length)
             throw new IndexOutOfBoundsException(index);
+    }
+
+    private void assertInRangeAddIndex(int index) {
+        if (index < 0 || index > length)
+            throw new IndexOutOfBoundsException("Index out of range: " + index);
     }
 }

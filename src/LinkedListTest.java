@@ -1,4 +1,3 @@
-
 public class LinkedListTest extends CommonListTest {
 
     public LinkedListTest() {

@@ -126,34 +126,34 @@ abstract class CommonListTest {
         assertOutOfBounds(-1, () -> list.remove(-1));
     }
 
-//    @Test
-//    public void testAddingToNegativeIndex() {
-//        assertOutOfBounds(-1, () -> list.add(1, -1));
-//    }
+    @Test
+    public void testAddingToNegativeIndex() {
+        assertOutOfBounds(-1, () -> list.add(1, -1));
+    }
 
-//    @Test
-//    public void testAddToEndOfListWithIndex() {
-//        list.add(1);
-//        list.add(3);
-//        list.add(4);
-//        list.add(2, 3);
-//        assertEquals(1, list.get(0));
-//        assertEquals(3, list.get(1));
-//        assertEquals(4, list.get(2));
-//        assertEquals(2, list.get(3));
-//    }
+    @Test
+    public void testAddToEndOfListWithIndex() {
+        list.add(1);
+        list.add(3);
+        list.add(4);
+        list.add(2, 3);
+        assertEquals(1, list.get(0));
+        assertEquals(3, list.get(1));
+        assertEquals(4, list.get(2));
+        assertEquals(2, list.get(3));
+    }
 
-//    @Test
-//    public void testAddToMiddleOfListWithIndex() {
-//        list.add(1);
-//        list.add(3);
-//        list.add(4);
-//        list.add(2, 1);
-//        assertEquals(1, list.get(0));
-//        assertEquals(2, list.get(1));
-//        assertEquals(3, list.get(2));
-//        assertEquals(4, list.get(3));
-//    }
+    @Test
+    public void testAddToMiddleOfListWithIndex() {
+        list.add(1);
+        list.add(3);
+        list.add(4);
+        list.add(2, 1);
+        assertEquals(1, list.get(0));
+        assertEquals(2, list.get(1));
+        assertEquals(3, list.get(2));
+        assertEquals(4, list.get(3));
+    }
 
     @Test
     public void testAddMoreThanHundredItems() {
@@ -175,23 +175,63 @@ abstract class CommonListTest {
         assertEquals(1000, list.size());
     }
 
-//    @Test
-//    public void testAdd1000ItemsToFront() {
-//        for (int i = 1000; i > 0; i--) {
-//            list.add(i, 0);
-//        }
-//        assertEquals(1000, list.size());
-//    }
-//
-//    @Test
-//    public void testAdd1000ItemsToMiddle() {
-//        list.add(1);
-//        list.add(10000);
-//        for (int i = (list.size()/2); i < 9999; i++) {
-//            list.add(i, 1);
-//        }
-//        assertEquals(10000, list.size());
-//    }
+    @Test
+    public void testAdd1000ItemsToFront() {
+        for (int i = 1000; i > 0; i--) {
+            list.add(i, 0);
+        }
+        assertEquals(1000, list.size());
+    }
+
+    @Test
+    public void testAdd1000ItemsToMiddle() {
+        list.add(1);
+        list.add(10000);
+        for (int i = (list.size() / 2); i < 9999; i++) {
+            list.add(i, 1);
+        }
+        assertEquals(10000, list.size());
+    }
+
+    @Test
+    public void testSetOnEmptyList() {
+        assertOutOfBounds(0, () -> list.set(0, 1));
+    }
+
+    @Test
+    public void testSetNegativeIndex() {
+        list.add(1);
+        assertOutOfBounds(-1, () -> list.set(-1, 2));
+    }
+
+    @Test
+    public void testSetOneItem() {
+        list.add(1);
+        list.set(0, 2);
+        assertEquals(2, list.get(0));
+    }
+
+    @Test
+    public void testSetTwoItems() {
+        list.add(1);
+        list.add(2);
+        list.set(0, 3);
+        list.set(1, 4);
+        assertEquals(3, list.get(0));
+        assertEquals(4, list.get(1));
+    }
+
+    @Test
+    public void testSetDoesNotChangeSize() {
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.set(0, 4);
+        list.set(1, 5);
+        list.set(2, 6);
+        int originalSize = list.size();
+        assertEquals(originalSize, list.size());
+    }
 
     private void assertOutOfBounds(int index, Runnable operation) {
         try {
