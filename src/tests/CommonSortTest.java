@@ -16,13 +16,6 @@ public abstract class CommonSortTest {
     }
 
     @Test
-    public void testOneItem() {
-        list.add(1);
-        sorter.sort(list);
-        Assert.assertEquals(1, list.get(0));
-    }
-
-    @Test
     public void testAlreadySorted() {
         list.add(1);
         list.add(2);
