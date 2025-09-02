@@ -1,3 +1,5 @@
+package datastructures;
+
 public class LinkedList implements List {
 
     private int length;

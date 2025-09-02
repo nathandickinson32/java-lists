@@ -1,3 +1,5 @@
+package datastructures;
+
 public class ArrayList implements List {
 
     private int[] array = new int[100];

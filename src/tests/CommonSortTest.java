@@ -1,6 +1,9 @@
-import org.junit.Test;
+package tests;
 
-import static org.junit.Assert.assertEquals;
+import algorithms.Sort;
+import datastructures.List;
+import org.junit.Assert;
+import org.junit.Test;
 
 public abstract class CommonSortTest {
     protected Sort sorter;
@@ -9,14 +12,14 @@ public abstract class CommonSortTest {
     @Test
     public void testEmptyArray() {
         sorter.sort(list);
-        assertEquals(0, list.size());
+        Assert.assertEquals(0, list.size());
     }
 
     @Test
     public void testOneItem() {
         list.add(1);
         sorter.sort(list);
-        assertEquals(1, list.get(0));
+        Assert.assertEquals(1, list.get(0));
     }
 
     @Test
@@ -25,9 +28,9 @@ public abstract class CommonSortTest {
         list.add(2);
         list.add(3);
         sorter.sort(list);
-        assertEquals(1, list.get(0));
-        assertEquals(2, list.get(1));
-        assertEquals(3, list.get(2));
+        Assert.assertEquals(1, list.get(0));
+        Assert.assertEquals(2, list.get(1));
+        Assert.assertEquals(3, list.get(2));
     }
 
     @Test
@@ -35,8 +38,8 @@ public abstract class CommonSortTest {
         list.add(2);
         list.add(1);
         sorter.sort(list);
-        assertEquals(1, list.get(0));
-        assertEquals(2, list.get(1));
+        Assert.assertEquals(1, list.get(0));
+        Assert.assertEquals(2, list.get(1));
     }
 
     @Test
@@ -45,9 +48,9 @@ public abstract class CommonSortTest {
         list.add(2);
         list.add(1);
         sorter.sort(list);
-        assertEquals(1, list.get(0));
-        assertEquals(2, list.get(1));
-        assertEquals(3, list.get(2));
+        Assert.assertEquals(1, list.get(0));
+        Assert.assertEquals(2, list.get(1));
+        Assert.assertEquals(3, list.get(2));
     }
 
     @Test
@@ -58,11 +61,11 @@ public abstract class CommonSortTest {
         list.add(2);
         list.add(3);
         sorter.sort(list);
-        assertEquals(1, list.get(0));
-        assertEquals(2, list.get(1));
-        assertEquals(2, list.get(2));
-        assertEquals(3, list.get(3));
-        assertEquals(3, list.get(4));
+        Assert.assertEquals(1, list.get(0));
+        Assert.assertEquals(2, list.get(1));
+        Assert.assertEquals(2, list.get(2));
+        Assert.assertEquals(3, list.get(3));
+        Assert.assertEquals(3, list.get(4));
     }
 
     @Test
@@ -72,9 +75,9 @@ public abstract class CommonSortTest {
         list.add(0);
         list.add(-1);
         sorter.sort(list);
-        assertEquals(-2, list.get(0));
-        assertEquals(-1, list.get(1));
-        assertEquals(0, list.get(2));
-        assertEquals(1, list.get(3));
+        Assert.assertEquals(-2, list.get(0));
+        Assert.assertEquals(-1, list.get(1));
+        Assert.assertEquals(0, list.get(2));
+        Assert.assertEquals(1, list.get(3));
     }
 }

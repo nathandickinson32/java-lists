@@ -1,3 +1,8 @@
+package tests;
+
+import algorithms.BubbleSort;
+import datastructures.LinkedList;
+
 public class BubbleSortLinkedListTest extends CommonSortTest {
 
     public BubbleSortLinkedListTest() {

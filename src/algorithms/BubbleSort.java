@@ -1,3 +1,7 @@
+package algorithms;
+
+import datastructures.List;
+
 public class BubbleSort implements Sort {
 
     @Override

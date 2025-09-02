@@ -1,3 +1,5 @@
+package datastructures;
+
 public interface List {
 
     void add(int value);
