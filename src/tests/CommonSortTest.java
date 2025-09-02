@@ -5,9 +5,18 @@ import datastructures.List;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Random;
+
 public abstract class CommonSortTest {
     protected Sort sorter;
     protected List list;
+    private Random random = new Random();
+
+    private void printList(List list) {
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
+    }
 
     @Test
     public void testEmptyArray() {
@@ -72,5 +81,20 @@ public abstract class CommonSortTest {
         Assert.assertEquals(-1, list.get(1));
         Assert.assertEquals(0, list.get(2));
         Assert.assertEquals(1, list.get(3));
+    }
+
+    @Test
+    public void test1000RandomNumbers() {
+        for (int i = 0; i < 1000; i++) {
+            list.add(random.nextInt(1000));
+        }
+
+//        System.out.println("Before:");
+//        printList(list);
+
+        sorter.sort(list);
+//        System.out.println("*************************************************");
+//        System.out.println("After:");
+//        printList(list);
     }
 }
