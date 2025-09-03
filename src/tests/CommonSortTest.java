@@ -56,6 +56,31 @@ public abstract class CommonSortTest {
     }
 
     @Test
+    public void testTenItemsOutOfOrder() {
+        list.add(9);
+        list.add(10);
+        list.add(7);
+        list.add(8);
+        list.add(5);
+        list.add(6);
+        list.add(4);
+        list.add(2);
+        list.add(3);
+        list.add(1);
+        sorter.sort(list);
+        Assert.assertEquals(1, list.get(0));
+        Assert.assertEquals(2, list.get(1));
+        Assert.assertEquals(3, list.get(2));
+        Assert.assertEquals(4, list.get(3));
+        Assert.assertEquals(5, list.get(4));
+        Assert.assertEquals(6, list.get(5));
+        Assert.assertEquals(7, list.get(6));
+        Assert.assertEquals(8, list.get(7));
+        Assert.assertEquals(9, list.get(8));
+        Assert.assertEquals(10, list.get(9));
+    }
+
+    @Test
     public void testWithDuplicates() {
         list.add(3);
         list.add(2);

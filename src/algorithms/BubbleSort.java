@@ -8,15 +8,13 @@ public class BubbleSort implements Sort {
 
     @Override
     public void sort(List list) {
-        int size = list.size();
-        for (int i = 0; i < size - 1; i++) {
+        int size = list.size() - 1;
+        for (int i = 0; i < size; i++) {
 
-            for (int current = 0; current < size - 1 - i; current++) {
-
-                int next = current + 1;
-                if (list.get(current) > list.get(next)) {
-                    swap(list, current, next);
-
+            for (int currentIndex = 0; currentIndex < size - i; currentIndex++) {
+                int nextIndex = currentIndex + 1;
+                if (list.get(currentIndex) > list.get(nextIndex)) {
+                    swap(list, currentIndex, nextIndex);
                 }
             }
         }

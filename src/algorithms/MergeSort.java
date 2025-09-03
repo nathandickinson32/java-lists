@@ -15,8 +15,13 @@ public class MergeSort implements Sort {
         }
 
         int centerIndex = list.size() / 2;
+
+        // works with both Linked and Array
         List leftHalf = new LinkedList();
         List rightHalf = new LinkedList();
+
+//        List leftHalf = new ArrayList();
+//        List rightHalf = new ArrayList();
 
         for (int i = 0; i < centerIndex; i++) {
             leftHalf.add(list.get(i));
