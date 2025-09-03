@@ -12,7 +12,7 @@ public class QuickSort implements Sort {
     }
 
     public static void quickSort(List list, int lowIndex, int highIndex) {
-        if (lowIndex >= highIndex) {
+        if (lowIndex > highIndex) {
             return;
         }
 
