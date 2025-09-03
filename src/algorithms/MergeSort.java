@@ -33,10 +33,12 @@ public class MergeSort implements Sort {
 
         sort(leftHalf);
         sort(rightHalf);
+        merge(list,leftHalf, rightHalf);
+    }
 
+    public static void merge(List list, List leftHalf, List rightHalf) {
         int leftSize = leftHalf.size();
         int rightSize = rightHalf.size();
-
         int leftIndex = 0;
         int rightIndex = 0;
         int mergeIndex = 0;
@@ -51,16 +53,14 @@ public class MergeSort implements Sort {
             }
             mergeIndex++;
         }
+        addRemainingValues(list, mergeIndex, leftIndex, leftSize, leftHalf);
+        addRemainingValues(list, mergeIndex, rightIndex, rightSize, rightHalf);
+    }
 
-        while (leftIndex < leftSize) {
-            list.set(mergeIndex, leftHalf.get(leftIndex));
-            leftIndex++;
-            mergeIndex++;
-        }
-
-        while (rightIndex < rightSize) {
-            list.set(mergeIndex, rightHalf.get(rightIndex));
-            rightIndex++;
+    private static void addRemainingValues(List list, int mergeIndex, int index, int size, List halfList) {
+        while (index < size) {
+            list.set(mergeIndex, halfList.get(index));
+            index++;
             mergeIndex++;
         }
     }

@@ -10,7 +10,7 @@ import java.util.Random;
 public abstract class CommonSortTest {
     protected Sort sorter;
     protected List list;
-    private Random random = new Random();
+    private final Random RANDOM = new Random();
 
     private void printList(List list) {
         for (int i = 0; i < list.size(); i++) {
@@ -111,7 +111,7 @@ public abstract class CommonSortTest {
     @Test
     public void test1000RandomNumbers() {
         for (int i = 0; i < 1000; i++) {
-            list.add(random.nextInt(1000));
+            list.add(RANDOM.nextInt(1000));
         }
 
 //        System.out.println("Before:");
