@@ -6,7 +6,7 @@ import datastructures.ArrayList;
 public class MergeSortArrayListTest extends CommonSortTest {
 
     public MergeSortArrayListTest() {
-        list = new ArrayList();
-        sorter = new MergeSort();
+        list = new ArrayList<Integer>();
+        sorter = new MergeSort<Integer>();
     }
 }

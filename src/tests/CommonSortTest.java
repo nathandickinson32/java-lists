@@ -8,11 +8,11 @@ import org.junit.Test;
 import java.util.Random;
 
 public abstract class CommonSortTest {
-    protected Sort sorter;
-    protected List list;
+    protected Sort<Integer> sorter;
+    protected List<Integer> list;
     private final Random RANDOM = new Random();
 
-    private void printList(List list) {
+    private void printList(List<Integer> list) {
         for (int i = 0; i < list.size(); i++) {
             System.out.println(list.get(i));
         }
@@ -30,9 +30,9 @@ public abstract class CommonSortTest {
         list.add(2);
         list.add(3);
         sorter.sort(list);
-        Assert.assertEquals(1, list.get(0));
-        Assert.assertEquals(2, list.get(1));
-        Assert.assertEquals(3, list.get(2));
+        Assert.assertEquals(1, list.get(0).intValue());
+        Assert.assertEquals(2, list.get(1).intValue());
+        Assert.assertEquals(3, list.get(2).intValue());
     }
 
     @Test
@@ -40,8 +40,8 @@ public abstract class CommonSortTest {
         list.add(2);
         list.add(1);
         sorter.sort(list);
-        Assert.assertEquals(1, list.get(0));
-        Assert.assertEquals(2, list.get(1));
+        Assert.assertEquals(1, list.get(0).intValue());
+        Assert.assertEquals(2, list.get(1).intValue());
     }
 
     @Test
@@ -50,9 +50,9 @@ public abstract class CommonSortTest {
         list.add(2);
         list.add(1);
         sorter.sort(list);
-        Assert.assertEquals(1, list.get(0));
-        Assert.assertEquals(2, list.get(1));
-        Assert.assertEquals(3, list.get(2));
+        Assert.assertEquals(1, list.get(0).intValue());
+        Assert.assertEquals(2, list.get(1).intValue());
+        Assert.assertEquals(3, list.get(2).intValue());
     }
 
     @Test
@@ -68,16 +68,16 @@ public abstract class CommonSortTest {
         list.add(3);
         list.add(1);
         sorter.sort(list);
-        Assert.assertEquals(1, list.get(0));
-        Assert.assertEquals(2, list.get(1));
-        Assert.assertEquals(3, list.get(2));
-        Assert.assertEquals(4, list.get(3));
-        Assert.assertEquals(5, list.get(4));
-        Assert.assertEquals(6, list.get(5));
-        Assert.assertEquals(7, list.get(6));
-        Assert.assertEquals(8, list.get(7));
-        Assert.assertEquals(9, list.get(8));
-        Assert.assertEquals(10, list.get(9));
+        Assert.assertEquals(1, list.get(0).intValue());
+        Assert.assertEquals(2, list.get(1).intValue());
+        Assert.assertEquals(3, list.get(2).intValue());
+        Assert.assertEquals(4, list.get(3).intValue());
+        Assert.assertEquals(5, list.get(4).intValue());
+        Assert.assertEquals(6, list.get(5).intValue());
+        Assert.assertEquals(7, list.get(6).intValue());
+        Assert.assertEquals(8, list.get(7).intValue());
+        Assert.assertEquals(9, list.get(8).intValue());
+        Assert.assertEquals(10, list.get(9).intValue());
     }
 
     @Test
@@ -88,11 +88,11 @@ public abstract class CommonSortTest {
         list.add(2);
         list.add(3);
         sorter.sort(list);
-        Assert.assertEquals(1, list.get(0));
-        Assert.assertEquals(2, list.get(1));
-        Assert.assertEquals(2, list.get(2));
-        Assert.assertEquals(3, list.get(3));
-        Assert.assertEquals(3, list.get(4));
+        Assert.assertEquals(1, list.get(0).intValue());
+        Assert.assertEquals(2, list.get(1).intValue());
+        Assert.assertEquals(2, list.get(2).intValue());
+        Assert.assertEquals(3, list.get(3).intValue());
+        Assert.assertEquals(3, list.get(4).intValue());
     }
 
     @Test
@@ -102,10 +102,10 @@ public abstract class CommonSortTest {
         list.add(0);
         list.add(-1);
         sorter.sort(list);
-        Assert.assertEquals(-2, list.get(0));
-        Assert.assertEquals(-1, list.get(1));
-        Assert.assertEquals(0, list.get(2));
-        Assert.assertEquals(1, list.get(3));
+        Assert.assertEquals(-2, list.get(0).intValue());
+        Assert.assertEquals(-1, list.get(1).intValue());
+        Assert.assertEquals(0, list.get(2).intValue());
+        Assert.assertEquals(1, list.get(3).intValue());
     }
 
     @Test
@@ -114,12 +114,12 @@ public abstract class CommonSortTest {
             list.add(RANDOM.nextInt(1000));
         }
 
-//        System.out.println("Before:");
-//        printList(list);
-
         sorter.sort(list);
-//        System.out.println("*************************************************");
-//        System.out.println("After:");
-//        printList(list);
+
+        for (int i = 1; i < list.size(); i++) {
+            if (list.get(i) < list.get(i - 1)) {
+                Assert.fail("List is not sorted at index " + i);
+            }
+        }
     }
 }

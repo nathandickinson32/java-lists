@@ -5,6 +5,6 @@ import datastructures.ArrayList;
 public class ArrayListTest extends CommonListTest {
 
     public ArrayListTest() {
-        list = new ArrayList();
+        list = new ArrayList<Integer>();
     }
 }

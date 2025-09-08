@@ -1,29 +1,35 @@
 package datastructures;
 
-public class LinkedList implements List {
+public class LinkedList<T> implements List<T> {
 
     private int length;
-    private Node head;
+    private Node<T> head;
+
+    private static class Node<T> {
+        T value;
+        Node<T> next;
+
+        Node(T value) {
+            this.value = value;
+        }
+    }
 
     @Override
-    public void add(int value) {
+    public void add(T value) {
         add(value, length);
     }
 
     @Override
-    public void add(int value, int index) {
+    public void add(T value, int index) {
         assertInRangeAddIndex(index);
 
-        Node newNode = new Node(value);
+        Node<T> newNode = new Node<>(value);
 
         if (index == 0) {
             newNode.next = head;
             head = newNode;
         } else {
-            Node current = head;
-            for (int i = 0; i < index - 1; i++) {
-                current = current.next;
-            }
+            Node<T> current = nodeAt(index - 1);
             newNode.next = current.next;
             current.next = newNode;
         }
@@ -37,23 +43,22 @@ public class LinkedList implements List {
         if (index == 0) {
             head = head.next;
         } else {
-            Node current = head;
-            for (int i = 0; i < index - 1; i++) {
-                current = current.next;
-            }
+            Node<T> current = nodeAt(index - 1);
             current.next = current.next.next;
         }
         length--;
     }
 
     @Override
-    public int get(int index) {
-        assertInRange(index);
-        Node current = head;
-        for (int i = 0; i < index; i++) {
-            current = current.next;
-        }
-        return current.value;
+    public T get(int index) {
+        return nodeAt(index).value;
+    }
+
+    @Override
+    public void swap(List<T> list, int index1, int index2) {
+        T tempValue = list.get(index1);
+        list.set(list.get(index2), index1);
+        list.set(tempValue, index2);
     }
 
     @Override
@@ -61,23 +66,46 @@ public class LinkedList implements List {
         return length;
     }
 
-    @Override
-    public void set(int index, int value) throws IndexOutOfBoundsException {
+    private Node<T> nodeAt(int index) {
         assertInRange(index);
-        Node current = head;
-        for (int i = 0; i < index; i++) {
+        Node<T> current = head;
+        while (index-- > 0) {
             current = current.next;
         }
-        current.value = value;
+        return current;
+    }
+
+    @Override
+    public void set(T value, int index) throws IndexOutOfBoundsException {
+        nodeAt(index).value = value;
+    }
+
+    @Override
+    public List<T> sublist(List<T> list, int start, int end) throws IndexOutOfBoundsException {
+        assertInRangeOfRange(list, start, end);
+
+        LinkedList<T> subList = new LinkedList<>();
+        for (int i = start; i < end; i++) {
+            subList.add(list.get(i));
+        }
+        return subList;
     }
 
     private void assertInRange(int index) {
-        if (index < 0 || index >= length)
+        if (index < 0 || index >= length) {
             throw new IndexOutOfBoundsException(index);
+        }
     }
 
     private void assertInRangeAddIndex(int index) {
-        if (index < 0 || index > length)
+        if (index < 0 || index > length) {
             throw new IndexOutOfBoundsException("Index out of range: " + index);
+        }
+    }
+
+    private static <T> void assertInRangeOfRange(List<T> list, int start, int end) {
+        if (start < 0 || end > list.size() || start > end) {
+            throw new IndexOutOfBoundsException("Index out of range: " + start + " to " + end);
+        }
     }
 }

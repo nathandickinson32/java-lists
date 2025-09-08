@@ -6,7 +6,7 @@ import datastructures.LinkedList;
 public class BubbleSortLinkedListTest extends CommonSortTest {
 
     public BubbleSortLinkedListTest() {
-        list = new LinkedList();
-        sorter = new BubbleSort();
+        list = new LinkedList<Integer>();
+        sorter = new BubbleSort<Integer>();
     }
 }

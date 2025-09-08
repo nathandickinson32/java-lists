@@ -1,42 +1,28 @@
 package algorithms;
 
-import datastructures.ArrayList;
-import datastructures.LinkedList;
 import datastructures.List;
 
-public class MergeSort implements Sort {
+public class MergeSort<T extends Comparable<T>> implements Sort<T> {
 
     @Override
-    public void sort(List list) {
+    public void sort(List<T> list) {
         int length = list.size();
 
         if (length < 2) {
             return;
         }
 
-        int centerIndex = list.size() / 2;
+        int centerIndex = length / 2;
 
-        // works with both Linked and Array
-        List leftHalf = new LinkedList();
-        List rightHalf = new LinkedList();
-
-//        List leftHalf = new ArrayList();
-//        List rightHalf = new ArrayList();
-
-        for (int i = 0; i < centerIndex; i++) {
-            leftHalf.add(list.get(i));
-        }
-
-        for (int i = centerIndex; i < length; i++) {
-            rightHalf.add(list.get(i));
-        }
+        List<T> leftHalf = list.sublist(list, 0, centerIndex);
+        List<T> rightHalf = list.sublist(list, centerIndex, length);
 
         sort(leftHalf);
         sort(rightHalf);
-        merge(list,leftHalf, rightHalf);
+        merge(list, leftHalf, rightHalf);
     }
 
-    public static void merge(List list, List leftHalf, List rightHalf) {
+    private static <T extends Comparable<T>> void merge(List<T> list, List<T> leftHalf, List<T> rightHalf) {
         int leftSize = leftHalf.size();
         int rightSize = rightHalf.size();
         int leftIndex = 0;
@@ -44,22 +30,28 @@ public class MergeSort implements Sort {
         int mergeIndex = 0;
 
         while (leftIndex < leftSize && rightIndex < rightSize) {
-            if (leftHalf.get(leftIndex) <= rightHalf.get(rightIndex)) {
-                list.set(mergeIndex, leftHalf.get(leftIndex));
+            if (leftHalf.get(leftIndex).compareTo(rightHalf.get(rightIndex)) <= 0) {
+                list.set(leftHalf.get(leftIndex), mergeIndex);
                 leftIndex++;
             } else {
-                list.set(mergeIndex, rightHalf.get(rightIndex));
+                list.set(rightHalf.get(rightIndex), mergeIndex);
                 rightIndex++;
             }
             mergeIndex++;
         }
+
         addRemainingValues(list, mergeIndex, leftIndex, leftSize, leftHalf);
         addRemainingValues(list, mergeIndex, rightIndex, rightSize, rightHalf);
     }
 
-    private static void addRemainingValues(List list, int mergeIndex, int index, int size, List halfList) {
+    private static <T extends Comparable<T>> void addRemainingValues(
+            List<T> list,
+            int mergeIndex,
+            int index,
+            int size,
+            List<T> halfList) {
         while (index < size) {
-            list.set(mergeIndex, halfList.get(index));
+            list.set(halfList.get(index), mergeIndex);
             index++;
             mergeIndex++;
         }

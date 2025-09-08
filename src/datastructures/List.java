@@ -1,16 +1,20 @@
 package datastructures;
 
-public interface List {
+public interface List<T> {
 
-    void add(int value);
+    void add(T value);
 
-    void add(int value, int index);
+    void add(T value, int index);
 
     int size();
 
     void remove(int index);
 
-    int get(int index) throws IndexOutOfBoundsException;
+    T get(int index) throws IndexOutOfBoundsException;
 
-    void set(int index, int value) throws IndexOutOfBoundsException;
+    void swap(List<T> list, int index1, int index2);
+
+    void set(T value, int index) throws IndexOutOfBoundsException;
+
+    List<T> sublist(List<T> list, int start, int end) throws IndexOutOfBoundsException;
 }

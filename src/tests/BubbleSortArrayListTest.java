@@ -6,7 +6,7 @@ import datastructures.ArrayList;
 public class BubbleSortArrayListTest extends CommonSortTest {
 
     public BubbleSortArrayListTest() {
-        list = new ArrayList();
-        sorter = new BubbleSort();
+        list = new ArrayList<Integer>();
+        sorter = new BubbleSort<Integer>();
     }
 }
