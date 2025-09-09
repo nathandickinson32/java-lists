@@ -41,7 +41,6 @@ public class ArrayList<T> implements List<T> {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public T get(int index) throws IndexOutOfBoundsException {
         assertInRange(index);
         return (T) array[index];

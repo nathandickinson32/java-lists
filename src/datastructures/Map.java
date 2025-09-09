@@ -6,11 +6,11 @@ public interface Map<TKey, TValue> {
 
     List<TKey> keys();
 
-    void put(TKey key, TValue value);
+    void put(TKey key, TValue value) throws IllegalArgumentException;
 
-    TValue get(TKey key);
+    TValue get(TKey key) throws IllegalArgumentException;
 
-    void remove(TKey key);
+    void remove(TKey key) throws IllegalArgumentException;
 
-    boolean containsKey(TKey key);
+    boolean containsKey(TKey key) throws IllegalArgumentException;
 }
