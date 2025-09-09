@@ -5,8 +5,14 @@ public class HashMap<TKey, TValue> implements Map<TKey, TValue> {
     private int length;
     private ArrayList<LinkedList<Entry<TKey, TValue>>> buckets = new ArrayList<>();
 
+    private static final double GROWTH_FACTOR = 0.75;
+
     public HashMap() {
-        for (int i = 0; i < 100; i++) {
+        initBuckets(16);
+    }
+
+    private void initBuckets(int size) {
+        for (int i = 0; i < size; i++) {
             buckets.add(new LinkedList<>());
         }
     }
@@ -21,7 +27,7 @@ public class HashMap<TKey, TValue> implements Map<TKey, TValue> {
         ArrayList<TKey> keys = new ArrayList<>();
         for (int i = 0; i < buckets.size(); i++) {
             LinkedList<Entry<TKey, TValue>> bucket = buckets.get(i);
-            for (int j = 0; j < buckets.get(i).size(); j++) {
+            for (int j = 0; j < bucket.size(); j++) {
                 keys.add(bucket.get(j).key);
             }
         }
@@ -31,7 +37,8 @@ public class HashMap<TKey, TValue> implements Map<TKey, TValue> {
     @Override
     public void put(TKey key, TValue value) throws IllegalArgumentException {
         assertKeyNotNull(key);
-        int bucketIdx = Math.abs(key.hashCode() % buckets.size());
+        expandMapIfNeeded();
+        int bucketIdx = getBucketIdx(key);
         LinkedList<Entry<TKey, TValue>> bucket = buckets.get(bucketIdx);
         boolean isPresent = false;
         for (int i = 0; i < bucket.size(); i++) {
@@ -49,11 +56,9 @@ public class HashMap<TKey, TValue> implements Map<TKey, TValue> {
     @Override
     public TValue get(TKey key) throws IllegalArgumentException {
         assertKeyNotNull(key);
-        int bucketIdx = Math.abs(key.hashCode() % buckets.size());
-        LinkedList<Entry<TKey, TValue>> bucket = buckets.get(bucketIdx);
-        for (int i = 0; i < bucket.size(); i++) {
-            if (key.equals(bucket.get(i).key))
-                return bucket.get(i).value;
+        Entry<TKey, TValue> entry = findEntry(key);
+        if (entry != null) {
+            return entry.value;
         }
         throw new NullPointerException("Key does not exist: " + key);
     }
@@ -61,12 +66,13 @@ public class HashMap<TKey, TValue> implements Map<TKey, TValue> {
     @Override
     public void remove(TKey key) throws IllegalArgumentException {
         assertKeyNotNull(key);
-        int bucketIdx = Math.abs(key.hashCode() % buckets.size());
+        int bucketIdx = getBucketIdx(key);
         LinkedList<Entry<TKey, TValue>> bucket = buckets.get(bucketIdx);
         for (int i = 0; i < bucket.size(); i++) {
             if (key.equals(bucket.get(i).key)) {
                 bucket.remove(i);
                 length--;
+                return;
             }
         }
     }
@@ -74,14 +80,43 @@ public class HashMap<TKey, TValue> implements Map<TKey, TValue> {
     @Override
     public boolean containsKey(TKey key) throws IllegalArgumentException {
         assertKeyNotNull(key);
-        int bucketIdx = Math.abs(key.hashCode() % buckets.size());
+        Entry<TKey, TValue> entry = findEntry(key);
+        return entry != null;
+    }
+
+    private Entry<TKey, TValue> findEntry(TKey key) {
+        int bucketIdx = getBucketIdx(key);
         LinkedList<Entry<TKey, TValue>> bucket = buckets.get(bucketIdx);
         for (int i = 0; i < bucket.size(); i++) {
             if (key.equals(bucket.get(i).key)) {
-                return true;
+                return bucket.get(i);
             }
         }
-        return false;
+        return null;
+    }
+
+    private int getBucketIdx(TKey key) {
+        return Math.abs(key.hashCode() % buckets.size());
+    }
+
+    private void expandMapIfNeeded() {
+        if ((double) (length + 1) / buckets.size() > GROWTH_FACTOR) {
+            resize();
+        }
+    }
+
+    private void resize() {
+        ArrayList<LinkedList<Entry<TKey, TValue>>> oldBuckets = buckets;
+        buckets = new ArrayList<>();
+        initBuckets(oldBuckets.size() * 2);
+        length = 0;
+        for (int i = 0; i < oldBuckets.size(); i++) {
+            LinkedList<Entry<TKey, TValue>> bucket = oldBuckets.get(i);
+            for (int j = 0; j < bucket.size(); j++) {
+                Entry<TKey, TValue> entry = bucket.get(j);
+                put(entry.key, entry.value);
+            }
+        }
     }
 
     private void assertKeyNotNull(Object key) {
