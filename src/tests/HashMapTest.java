@@ -7,7 +7,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class HashMapTest {
-    protected HashMap map = new HashMap();
+    protected HashMap<Object, Object> map = new HashMap<>();
 
     @Test
     public void testNewMapSize() {
@@ -139,7 +139,7 @@ public class HashMapTest {
     public void testKeysMultipleItems() {
         map.put("test1", 1);
         map.put("test2", 2);
-        List keys = map.keys();
+        List<Object> keys = map.keys();
         assertEquals("test1", keys.get(0));
         assertEquals("test2", keys.get(1));
     }
