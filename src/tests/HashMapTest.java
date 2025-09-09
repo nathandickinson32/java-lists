@@ -152,6 +152,25 @@ public class HashMapTest {
         assertEquals(2, map.get("test"));
     }
 
+//    Performance Test
+//    @Test
+//    public void testConstantTimeLookup() {
+//        for (int i = 0; i < 10000; i++) {
+//            map.put(i, i);
+//        }
+//        long index1Start = System.nanoTime();
+//        map.get(0);
+//        long index1End = System.nanoTime();
+//        long index2Start = System.nanoTime();
+//        map.get(9999);
+//        long index2End = System.nanoTime();
+//        long index1Diff = index1End - index1Start;
+//        long index2Diff = index2End - index2Start;
+//        System.out.println(index1Diff);
+//        System.out.println(index2Diff);
+//        assertTrue(index2Diff < (index1Diff * 3));
+//    }
+
     private void assertNullPointer(Runnable operation, Object key) {
         try {
             operation.run();

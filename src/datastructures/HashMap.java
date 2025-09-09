@@ -3,7 +3,13 @@ package datastructures;
 public class HashMap<TKey, TValue> implements Map<TKey, TValue> {
 
     private int length;
-    private List<Entry<TKey, TValue>> entries = new ArrayList<>();
+    private ArrayList<LinkedList<Entry<TKey, TValue>>> buckets = new ArrayList<>();
+
+    public HashMap() {
+        for (int i = 0; i < 100; i++) {
+            buckets.add(new LinkedList<>());
+        }
+    }
 
     @Override
     public int size() {
@@ -13,8 +19,11 @@ public class HashMap<TKey, TValue> implements Map<TKey, TValue> {
     @Override
     public List<TKey> keys() {
         ArrayList<TKey> keys = new ArrayList<>();
-        for (int i = 0; i < entries.size(); i++) {
-            keys.add(entries.get(i).key);
+        for (int i = 0; i < buckets.size(); i++) {
+            LinkedList<Entry<TKey, TValue>> bucket = buckets.get(i);
+            for (int j = 0; j < buckets.get(i).size(); j++) {
+                keys.add(bucket.get(j).key);
+            }
         }
         return keys;
     }
@@ -22,25 +31,29 @@ public class HashMap<TKey, TValue> implements Map<TKey, TValue> {
     @Override
     public void put(TKey key, TValue value) throws IllegalArgumentException {
         assertKeyNotNull(key);
-        for (int i = 0; i < entries.size(); i++) {
-            Entry<TKey, TValue> entry = entries.get(i);
-            if (entry.key.equals(key)) {
-                entry.value = value;
-                return;
+        int bucketIdx = Math.abs(key.hashCode() % buckets.size());
+        LinkedList<Entry<TKey, TValue>> bucket = buckets.get(bucketIdx);
+        boolean isPresent = false;
+        for (int i = 0; i < bucket.size(); i++) {
+            if (key.equals(bucket.get(i).key)) {
+                bucket.set(new Entry<>(key, value), i);
+                isPresent = true;
             }
         }
-        entries.add(new Entry<>(key, value));
-        length++;
+        if (!isPresent) {
+            bucket.add(new Entry<>(key, value));
+            length++;
+        }
     }
 
     @Override
     public TValue get(TKey key) throws IllegalArgumentException {
         assertKeyNotNull(key);
-        for (int i = 0; i < entries.size(); i++) {
-            Entry<TKey, TValue> entry = entries.get(i);
-            if (entry.key.equals(key)) {
-                return entry.value;
-            }
+        int bucketIdx = Math.abs(key.hashCode() % buckets.size());
+        LinkedList<Entry<TKey, TValue>> bucket = buckets.get(bucketIdx);
+        for (int i = 0; i < bucket.size(); i++) {
+            if (key.equals(bucket.get(i).key))
+                return bucket.get(i).value;
         }
         throw new NullPointerException("Key does not exist: " + key);
     }
@@ -48,10 +61,11 @@ public class HashMap<TKey, TValue> implements Map<TKey, TValue> {
     @Override
     public void remove(TKey key) throws IllegalArgumentException {
         assertKeyNotNull(key);
-        for (int i = 0; i < entries.size(); i++) {
-            Entry<TKey, TValue> entry = entries.get(i);
-            if (entry.key.equals(key)) {
-                entries.remove(i);
+        int bucketIdx = Math.abs(key.hashCode() % buckets.size());
+        LinkedList<Entry<TKey, TValue>> bucket = buckets.get(bucketIdx);
+        for (int i = 0; i < bucket.size(); i++) {
+            if (key.equals(bucket.get(i).key)) {
+                bucket.remove(i);
                 length--;
             }
         }
@@ -60,9 +74,10 @@ public class HashMap<TKey, TValue> implements Map<TKey, TValue> {
     @Override
     public boolean containsKey(TKey key) throws IllegalArgumentException {
         assertKeyNotNull(key);
-        for (int i = 0; i < entries.size(); i++) {
-            Entry<TKey, TValue> entry = entries.get(i);
-            if (entry.key.equals(key)) {
+        int bucketIdx = Math.abs(key.hashCode() % buckets.size());
+        LinkedList<Entry<TKey, TValue>> bucket = buckets.get(bucketIdx);
+        for (int i = 0; i < bucket.size(); i++) {
+            if (key.equals(bucket.get(i).key)) {
                 return true;
             }
         }
