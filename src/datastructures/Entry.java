@@ -1,10 +1,10 @@
 package datastructures;
 
-public class Entry {
-    Object key;
-    Object value;
+public class Entry<TKey, TValue> {
+    TKey key;
+    TValue value;
 
-    Entry(Object key, Object value) {
+    Entry(TKey key, TValue value) {
         this.key = key;
         this.value = value;
     }

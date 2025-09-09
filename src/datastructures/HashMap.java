@@ -1,9 +1,9 @@
 package datastructures;
 
-public class HashMap implements Map {
+public class HashMap<TKey, TValue> implements Map<TKey, TValue> {
 
     private int length;
-    private List<Entry> entries = new ArrayList<>();
+    private List<Entry<TKey, TValue>> entries = new ArrayList<>();
 
     @Override
     public int size() {
@@ -11,8 +11,8 @@ public class HashMap implements Map {
     }
 
     @Override
-    public List keys() {
-        ArrayList keys = new ArrayList();
+    public List<TKey> keys() {
+        ArrayList<TKey> keys = new ArrayList<>();
         for (int i = 0; i < entries.size(); i++) {
             keys.add(entries.get(i).key);
         }
@@ -20,24 +20,24 @@ public class HashMap implements Map {
     }
 
     @Override
-    public void put(Object key, Object value) throws IllegalArgumentException {
+    public void put(TKey key, TValue value) throws IllegalArgumentException {
         assertKeyNotNull(key);
         for (int i = 0; i < entries.size(); i++) {
-            Entry entry = entries.get(i);
+            Entry<TKey, TValue> entry = entries.get(i);
             if (entry.key.equals(key)) {
                 entry.value = value;
                 return;
             }
         }
-        entries.add(new Entry(key, value));
+        entries.add(new Entry<>(key, value));
         length++;
     }
 
     @Override
-    public Object get(Object key) throws IllegalArgumentException {
+    public TValue get(TKey key) throws IllegalArgumentException {
         assertKeyNotNull(key);
         for (int i = 0; i < entries.size(); i++) {
-            Entry entry = entries.get(i);
+            Entry<TKey, TValue> entry = entries.get(i);
             if (entry.key.equals(key)) {
                 return entry.value;
             }
@@ -46,10 +46,10 @@ public class HashMap implements Map {
     }
 
     @Override
-    public void remove(Object key) throws IllegalArgumentException {
+    public void remove(TKey key) throws IllegalArgumentException {
         assertKeyNotNull(key);
         for (int i = 0; i < entries.size(); i++) {
-            Entry entry = entries.get(i);
+            Entry<TKey, TValue> entry = entries.get(i);
             if (entry.key.equals(key)) {
                 entries.remove(i);
                 length--;
@@ -58,10 +58,10 @@ public class HashMap implements Map {
     }
 
     @Override
-    public boolean containsKey(Object key) throws IllegalArgumentException {
+    public boolean containsKey(TKey key) throws IllegalArgumentException {
         assertKeyNotNull(key);
         for (int i = 0; i < entries.size(); i++) {
-            Entry entry = entries.get(i);
+            Entry<TKey, TValue> entry = entries.get(i);
             if (entry.key.equals(key)) {
                 return true;
             }
