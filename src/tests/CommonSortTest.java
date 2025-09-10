@@ -4,7 +4,6 @@ import algorithms.Sort;
 import datastructures.List;
 import org.junit.Assert;
 import org.junit.Test;
-
 import java.util.Random;
 
 public abstract class CommonSortTest {

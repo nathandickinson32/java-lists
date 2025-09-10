@@ -1,9 +1,7 @@
 package tests;
 
 import datastructures.HashMap;
-import datastructures.List;
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
 public class HashMapTest {

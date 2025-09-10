@@ -2,7 +2,6 @@ package tests;
 
 import datastructures.List;
 import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
