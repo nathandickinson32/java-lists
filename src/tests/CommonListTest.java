@@ -7,7 +7,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 abstract class CommonListTest {
+
     protected List<Integer> list;
+    protected List<String> strList;
 
     @Test
     public void testNewListSize() {
@@ -336,6 +338,44 @@ abstract class CommonListTest {
         for (int i = 0; i < list.size(); i++) {
             assertEquals(list.get(i).intValue(), sub.get(i).intValue());
         }
+    }
+
+    @Test
+    public void testAddOneStringToList() {
+        strList.add("test");
+        assertEquals(1, strList.size());
+    }
+
+    @Test
+    public void testGetStringInList() {
+        strList.add("test");
+        assertEquals("test", strList.get(0));
+    }
+
+    @Test
+    public void testRemovingString() {
+        strList.add("test");
+        strList.remove(0);
+        assertOutOfBounds(0, () -> strList.get(0));
+        assertEquals(0, strList.size());
+    }
+
+    @Test
+    public void testSetString() {
+        strList.add("test1");
+        strList.set("test2", 0);
+        assertEquals("test2", strList.get(0));
+    }
+
+    @Test
+    public void testSwapTwoStrings() {
+        strList.add("test1");
+        strList.add("test2");
+        int originalSize = strList.size();
+        strList.swap(strList, 0, 1);
+        assertEquals("test2", strList.get(0));
+        assertEquals("test1", strList.get(1));
+        assertEquals(originalSize, strList.size());
     }
 
     private void assertOutOfBounds(int index, Runnable operation) {

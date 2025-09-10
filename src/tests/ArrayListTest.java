@@ -6,5 +6,6 @@ public class ArrayListTest extends CommonListTest {
 
     public ArrayListTest() {
         list = new ArrayList<Integer>();
+        strList = new ArrayList<String>();
     }
 }
